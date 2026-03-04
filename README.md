@@ -74,7 +74,6 @@ Open [this link](https://prateekmirchandani.github.io/swd-tictactoe/).
 ---
 
 ## AI Usage
-## AI Usage
 
 I want to be honest about how this project was made.
 
