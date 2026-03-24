@@ -52,11 +52,13 @@ The application allows two players to enter their names and play a **Tic Tac Toe
 
 ---
 
-## Known Limitations
+## Known Limitations / Updates
 
-The task required storing and retrieving **player scores using `localStorage`** so that scores persist after refreshing the page.
+Initially, I was not able to implement the score tracking and localStorage functionality properly within the given time.
 
-However, I was **not able to successfully implement the score tracking and localStorage functionality** within the current version of the project. The gameplay works correctly, but score counting is not yet implemented.
+However, after submission, I revisited the code and fixed the issue. The game now correctly updates player scores and stores them using localStorage, so the scores persist even after refreshing the page.
+
+This helped me better understand how DOM updates and localStorage work together in a web application.
 
 ---
 
