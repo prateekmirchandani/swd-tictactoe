@@ -12,18 +12,22 @@ function startGame() {
     return;
   }
 
-  // Fetch scores from localStorage
+  // Load scores from localStorage
   scores[player1] = parseInt(localStorage.getItem(player1)) || 0;
   scores[player2] = parseInt(localStorage.getItem(player2)) || 0;
 
-  document.getElementById("p1Info").innerText = `${player1}: ${scores[player1]}`;
-  document.getElementById("p2Info").innerText = `${player2}: ${scores[player2]}`;
+  updateScoreboard();
 
   document.getElementById("nameScreen").classList.add("hidden");
   document.getElementById("gameScreen").classList.remove("hidden");
 
   createBoard();
   updateTurnText();
+}
+
+function updateScoreboard() {
+  document.getElementById("p1Info").innerText = `${player1}: ${scores[player1]}`;
+  document.getElementById("p2Info").innerText = `${player2}: ${scores[player2]}`;
 }
 
 function createBoard() {
@@ -33,8 +37,8 @@ function createBoard() {
   boardState.forEach((cell, index) => {
     const div = document.createElement("div");
     div.classList.add("cell");
-    div.addEventListener("click", () => handleClick(index));
     div.innerText = cell;
+    div.addEventListener("click", () => handleClick(index));
     board.appendChild(div);
   });
 }
@@ -47,8 +51,12 @@ function handleClick(index) {
 
   if (checkWin()) {
     let winner = currentPlayer === "X" ? player1 : player2;
+
     scores[winner]++;
     localStorage.setItem(winner, scores[winner]);
+
+    updateScoreboard(); // 🔥 FIXED
+
     showVictory(winner);
     return;
   }
@@ -75,7 +83,7 @@ function checkWin() {
   ];
 
   return winPatterns.some(pattern => {
-    const [a,b,c] = pattern;
+    const [a, b, c] = pattern;
     return boardState[a] &&
            boardState[a] === boardState[b] &&
            boardState[a] === boardState[c];
@@ -85,6 +93,7 @@ function checkWin() {
 function showVictory(winner) {
   document.getElementById("gameScreen").classList.add("hidden");
   document.getElementById("victoryScreen").classList.remove("hidden");
+
   document.getElementById("winnerText").innerText =
     winner === "It's a Draw!" ? winner : `${winner} Wins!`;
 }
@@ -92,8 +101,10 @@ function showVictory(winner) {
 function restartGame() {
   boardState = ["", "", "", "", "", "", "", "", ""];
   currentPlayer = "X";
+
   document.getElementById("victoryScreen").classList.add("hidden");
   document.getElementById("gameScreen").classList.remove("hidden");
+
   createBoard();
   updateTurnText();
 }
